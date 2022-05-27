@@ -7,7 +7,6 @@ from app.base import Sequence
 
 def main():
 
-
     class UrbanAtlasPreprocess(Sequence):
         process1 = VectorRead()
         process2 = VectorColumsRename(map=config.input.urbanAtlas.columnNames.reverse)

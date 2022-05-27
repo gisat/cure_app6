@@ -4,9 +4,7 @@ from typing import Callable, Optional, Any
 from app.method import Process
 
 
-
 class SequenceMeta(type):
-
     def __new__(cls, clsname: str, superclasses: tuple, clsdict: dict):
         stac = [value for attr, value in clsdict.items() if isinstance(value, Process)]
         clsdict.update(stac=stac)

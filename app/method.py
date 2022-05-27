@@ -38,18 +38,3 @@ class VectorDropColumns(Process):
             return geodata.drop(self.colums, axis=1)
 
 
-# @dataclass
-# class Process:
-#     methods: List[Callable] = field(default_factory=list)
-#
-#     def add_method(self, func: Callable, params: Optional[Any] = None)-> None:
-#         if params:
-#             self.methods.append(partial(func, **params))
-#         else:
-#             self.methods.append(func)
-#
-#     def __call__(self, value) -> Any:
-#         current = value
-#         for method in self.methods:
-#             current = method(current)
-#         return current
