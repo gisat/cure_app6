@@ -1,0 +1,7 @@
+input:
+  urbanAtlas:
+    columnNames:
+      id: identifier
+      code: code_2018
+      area: area
+      geometry: geometry
