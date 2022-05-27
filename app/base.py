@@ -1,22 +1,22 @@
 from dataclasses import dataclass, field
+from functools import partial
+from typing import Callable, Optional, Any
+from app.method import Process
+
 
 
 class SequenceMeta(type):
 
     def __new__(cls, clsname: str, superclasses: tuple, clsdict: dict):
-        # stac = [clsdict.get(attr) for attr in clsdict if callable(clsdict[attr]) and not attr.startswith("__")]
-        stac = [clsdict.get(attr) for attr in clsdict if not callable(clsdict[attr]) and not attr.startswith("__")]
-        clsdict.update(stack=stac)
+        stac = [value for attr, value in clsdict.items() if isinstance(value, Process)]
+        clsdict.update(stac=stac)
         return super().__new__(cls, clsname, superclasses, clsdict)
 
 
 class Sequence(metaclass=SequenceMeta):
-    a = 1
-    b = 2
-    c = 'hej'
 
-    def run(self):
-        for item in self.stack:
-            print(item)
-
-pass
+    def __call__(self, value) -> Any:
+        current = value
+        for method in self.stac:
+            current = method(current)
+        return current
