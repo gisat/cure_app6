@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from functools import partial
 from typing import Callable, Optional, Any
+from functools import wraps
+
 from app.method import Process
 
 
