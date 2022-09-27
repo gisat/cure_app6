@@ -1,7 +1,20 @@
-input:
-  urbanAtlas:
-    columnNames:
-      id: identifier
-      code: code_2018
-      area: area
-      geometry: geometry
+setting:
+  crs: 3035
+urbanAtlas:
+  columns:
+    id_r: identifier
+    code_r: code_2018
+    area_r: area
+    geometry: geometry
+urbanAtlasChange:
+  columns:
+    id_ch: identifier
+    code_1: code_2012
+    code_2: code_2018
+    area_ch: area
+    geometry: geometry
+gdd:
+  columns:
+    id: ID
+    vel_avg: VEL
+    geometry: geometry

@@ -1,40 +1,37 @@
-from pydantic import BaseModel
-import yaml
 from pathlib import Path
+from typing import Optional, Dict, List
+from yaml import load
+from yaml.loader import SafeLoader
+from pydantic import BaseModel
+
+CONFIG_PATH = Path(__file__).parent.parent / 'config.yaml'
 
 
-class ColumnsNames(BaseModel):
-    id: str
-    code: str
-    area: str
-    geometry: str
+class MappingTable(BaseModel):
+    columns: Dict
 
     @property
-    def reverse(self):
-        return {v: k for k, v in self.__dict__.items()}
+    def original_names(self) -> List[str]:
+        return [name for name in self.columns.values()]
 
     @property
-    def keys(self):
-        return self.__dict__.keys()
+    def process_names(self) -> List[str]:
+        return [name for name in self.columns.keys()]
 
 
-class UrbanAtlas(BaseModel):
-    columnNames: ColumnsNames
+class Setting(BaseModel):
+    crs: int
 
 
-class Input(BaseModel):
-    urbanAtlas: UrbanAtlas
+class Config(BaseModel):
+    setting: Setting
+    urbanAtlas: Optional[MappingTable]
+    urbanAtlasChange: Optional[MappingTable]
+    gdd: Optional[MappingTable]
 
 
-class AppConfig(BaseModel):
-    input: Input
-
-
-def load_config(path: str) -> BaseModel:
+def load_config(path: Path) -> Config:
     with open(path, 'r') as file:
-        data = yaml.load(file, Loader=yaml.FullLoader)
-        return AppConfig(**data)
+        return Config(**load(file, SafeLoader))
 
-config_path = Path.cwd() / 'config.yaml'
-config = load_config(config_path)
-pass
+
