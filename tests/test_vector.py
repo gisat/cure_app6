@@ -4,14 +4,14 @@ from app.vector import vector2gpd, drop_columns, rename_columns, prepare_vector_
 from tests.fixtures import *
 
 
-def test_gpkg(urban_atlas_path, urban_atlas_layer_name):
-    geodata = vector2gpd(urban_atlas_path)
-    assert isinstance(vector2gpd(urban_atlas_path), GeoDataFrame)
+def test_gpkg(urban_atlas_gpkg_path, urban_atlas_layer_name):
+    geodata = vector2gpd(urban_atlas_gpkg_path)
+    assert isinstance(vector2gpd(urban_atlas_gpkg_path), GeoDataFrame)
     return geodata
 
 
-def test_gpkg_with_name(urban_atlas_path, urban_atlas_layer_name):
-    assert isinstance(vector2gpd(urban_atlas_path, layer_name=urban_atlas_layer_name), GeoDataFrame)
+def test_gpkg_with_name(urban_atlas_gpkg_path, urban_atlas_layer_name):
+    assert isinstance(vector2gpd(urban_atlas_gpkg_path, layer_name=urban_atlas_layer_name), GeoDataFrame)
 
 
 def test_keep_columns(config, urban_atlas):
